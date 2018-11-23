@@ -10,17 +10,27 @@ const mapStateToProps = (state) => {
     }
 }
 
+// 异步加载，先触发effects
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickAdd: (newCard) => {
-            const action = {
-                type: `${namespace}/addNewCard`,
-                payload: newCard,
-            }
-            dispatch(action);
+        onDidMount:()=>{
+            dispatch({type:`${namespace}/queryInitCards`});
         }
     }
 }
+
+// 同步加载，直接触发reducers
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         onClickAdd: (newCard) => {
+//             const action = {
+//                 type: `${namespace}/addNewCard`,
+//                 payload: newCard,
+//             }
+//             dispatch(action);
+//         }
+//     }
+// }
 
 // mapStateToProps会自动传入所有的state
 @connect(mapStateToProps, mapDispatchToProps)
@@ -43,6 +53,11 @@ export default class PuzzleCardsPage extends React.Component {
     //         ],
     //     }
     // }
+
+    // 生命周期函数，组件被渲染完后
+    componentDidMount() {
+        this.props.onDidMount();
+    }
 
     addNewCard() {
         const state = this.state.cardList;
@@ -90,12 +105,6 @@ export default class PuzzleCardsPage extends React.Component {
                 {/*<Button onClick={this.addCard}> 添加卡片 </Button>*/}
                 {/*</div>*/}
 
-                <div>
-                    <Button onClick={() => this.props.onClickAdd({
-                        setup: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                        punchline: 'here we use dva',
-                    })}> 添加卡片 </Button>
-                </div>
             </div>
         )
     }

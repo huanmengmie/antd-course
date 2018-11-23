@@ -29,10 +29,8 @@ class BasicLayout extends Component {
                             <Menu.Item key="4"><Link to="/dashboard/workplace">工作台</Link></Menu.Item>
                         </SubMenu>
                         <Menu.Item key="5">
-                            <Link to="/puzzlecards">
-                                <Icon type="pie-chart"/>
-                                <span>dva test</span>
-                            </Link>
+                            <Link to="/puzzlecards"><span>dva test</span></Link>
+                            <Link to="/list"><span>列表页</span></Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>
